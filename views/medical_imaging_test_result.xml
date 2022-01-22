@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="medical_imaging_test_result_code_seq" model="ir.sequence">
+            <field name="name">Imaging Result</field>
+            <field name="code">medical.imaging.test.result</field>
+            <field name="prefix">IMGR</field>
+            <field name="padding">3</field>
+        </record>
+        <record id="medical_imaging_test_result_view" model="ir.ui.view">
+            <field name="name">medical.imaging.test.result.form</field>
+            <field name="model">medical.imaging.test.result</field>
+            <field name="arch" type="xml">
+                <form string="Test Result">
+                    <group colspan="4" col="4">
+                        <field name="name" />
+                        <field name="test_date" />
+                        <field name="request_id" />
+                        <field name="request_date" />
+                        <field name="test_id" />
+                        <field name="patient_id" />
+                        <field name="physician_id" />
+                        <newline />
+                        <field name="comments" colspan="4" />
+                     </group>
+                        <notebook>
+                        
+                        
+                        <page string="Images of Xray">
+                        <field name="images_ids" mode="kanban">
+                          <kanban>
+                              <field name="id"/>
+                    <field name="mimetype"/>
+                    <field name="type"/>
+                    <field name="datas_fname"/>
+                    <field name="name"/>
+                             <templates>
+                        <t t-name="kanban-box">
+                            <div class="oe_kanban_global_click">
+                                <div class="oe_kanban_vignette">
+                                    <div class="oe_attachment">
+                                        <div class="oe_name">
+                                            <field name="name"/>
+                                        </div>
+                                        <div t-if="record.type.raw_value == 'binary'">
+                                            <a t-attf-href="/web/content/#{record.id.raw_value}?download=1">
+                                                <t t-set="webimage" t-value="new RegExp('image.*(gif|jpeg|jpg|png)').test(record.mimetype.value)"/>
+                                                <div t-if="!webimage" class="o_image" t-att-data-mimetype="record.mimetype.value"/>
+                                                <div t-if="webimage" class="o_attachment_image">
+                                                    <img t-attf-src="/web/image/#{record.id.raw_value}?download=1"/>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                          </kanban>
+                          
+                          
+                          
+                          
+                          
+                          
+                          
+                           <form string="Images Data">
+                                    <sheet>
+                                 <sheet>
+                    <label for="name" class="oe_edit_only"/>
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="type"/>
+                            <field name="datas" filename="datas_fname" attrs="{'invisible':[('type','=','url')]}"/>
+                            <field name="datas_fname" invisible="1" attrs="{'invisible':[('type','=','url')]}" class="oe_inline oe_right"/>
+                            <field name="url" widget="url" attrs="{'invisible':[('type','=','binary')]}"/>
+                            <field name="mimetype"/>
+                        </group>
+                        <group string="Attached To" groups="base.group_no_one">
+                            <field name="res_model"/>
+                            <field name="res_field"/>
+                            <field name="res_id"/>
+                            <field name="res_name"/>
+                            <field name="company_id" groups="base.group_multi_company" options="{'no_create': True}"/>
+                            <field name="public"/>
+                        </group>
+                        <group string="History" groups="base.group_no_one">
+                            <label for="create_uid" string="Creation"/>
+                            <div name="creation_div">
+                                <field name="create_uid" readonly="1" class="oe_inline"/> on
+                                <field name="create_date" readonly="1" class="oe_inline"/>
+                            </div>
+                        </group>
+                        <group name="description_group" string="Description" groups="base.group_no_one" colspan="4">
+                            <field name="description" nolabel="1"/>
+                        </group>
+                        <group groups="base.group_no_one" string="Indexed Content" colspan="4">
+                            <field name="index_content" nolabel="1"/>
+                        </group>
+                    </group>
+                  </sheet>
+                          </sheet>
+                          </form>
+                          
+                          
+                          
+                        </field>
+                        </page>
+                        </notebook>
+                        
+                       
+                </form>
+            </field>
+        </record>
+        <record id="medical_imaging_test_result_tree" model="ir.ui.view">
+            <field name="name">medical.imaging.test.result.tree</field>
+            <field name="model">medical.imaging.test.result</field>
+            <field name="arch" type="xml">
+                <tree string="Test Requests">
+                    <field name="name" />
+                    <field name="test_date" />
+                    <field name="request_id" />
+                    <field name="request_date" />
+                    <field name="test_id" />
+                    <field name="patient_id" />
+                    <field name="physician_id" />
+                </tree>
+            </field>
+        </record>
+        <record id="action_medical_imaging_test_result" model="ir.actions.act_window">
+            <field name="name">Imaging Test Result</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">medical.imaging.test.result</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <menuitem id="menu_medical_imaging_test_result" action="action_medical_imaging_test_result"
+            string="Imaging Test Result" parent="hospital_management.menu_main_imaging"
+            sequence="3" />
+    </data>
+</odoo>

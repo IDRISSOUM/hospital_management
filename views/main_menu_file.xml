@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <menuitem 
+        	id="main_menu_hospital_management"
+        	name="Hospital Management"
+            web_icon="hospital_management,static/index1.png"
+           />
+
+         <menuitem name="Configuration"
+            id="main_menu_configartion"
+            parent = "main_menu_hospital_management"
+            sequence = '13'
+            />
+
+        <menuitem id="menu_nursing" name="Nursing"
+            parent="main_menu_hospital_management"
+            sequence="8" groups="group_doctor,group_medical_group" />
+
+        <menuitem id="menu_appointment" string="Appointments"
+            name='Appointments' parent="main_menu_hospital_management" sequence="1" />
+
+        <menuitem id="menu_medical_health_service" string="Medical Service"
+            name='Medical Service' parent="main_menu_hospital_management"
+            sequence="11" />
+
+         <menuitem id="menu_inpatient_administration" name="Inpatient Administration"
+            parent="main_menu_hospital_management" sequence='2' groups="group_doctor,group_medical_group"  />
+
+        <menuitem id="menu_patients" string="Patients" name='Patients'
+            parent="main_menu_hospital_management" sequence="0" groups="group_doctor,group_medical_group,group_receptionist" />
+
+        <menuitem name="Pediatrics" id="main_menu_pediatrics"
+            parent="main_menu_hospital_management"
+            sequence="6"  groups="group_doctor,group_medical_group"/>
+
+        <menuitem id="Invoice" string="Invoice"
+            parent="main_menu_hospital_management" sequence='8' groups="group_doctor,group_medical_group,group_chemist"/>
+
+        <menuitem id="menu_medical_paper_archive" string="Archive"
+            name='Archive' groups="group_doctor,group_medical_group" parent="main_menu_hospital_management" sequence="4" />
+
+        <menuitem id="menu_medical_surgery" string="Surgery"
+            name='Surgery' parent="main_menu_hospital_management"
+            sequence="9"  groups="group_doctor,group_medical_group"/>
+
+        <menuitem id="menu_genetic" name="Genetics"
+            parent="main_menu_configartion" sequence='10' groups="group_doctor,group_medical_group"/>
+
+        <menuitem id="menu_health_centers" name="Health Centers"
+            parent="main_menu_configartion" sequence='5' groups="group_medical_group"/>
+
+        <menuitem id="menu_imaging_configaration" name="Imaging"
+            parent="main_menu_configartion" sequence="2"  groups="group_doctor,group_medical_group"/>
+
+        <menuitem id="menu_intensive_care" name="Intensive Care"
+            parent="menu_inpatient_administration" groups="group_doctor,group_medical_group" />
+
+        <menuitem id="menu_medical_management" name="Medical" groups="group_doctor,group_medical_group" />
+
+
+        <menuitem id="menu_insurance" 
+                name="Insurances" 
+                parent="main_menu_configartion"
+                sequence='9' groups="group_doctor,group_medical_group"/>
+
+        <menuitem id="menu_misc" string="Misc" name='Misc'
+            parent="main_menu_configartion" sequence='11' groups="group_doctor,group_medical_group,group_chemist" />
+
+    </data>
+</openerp>

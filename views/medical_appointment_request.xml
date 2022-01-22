@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record id="medical_appointment_request_form_view" model="ir.ui.view">
+            <field name="name">medical.appointment.request.form.view</field>
+            <field name="model">medical.appointment.request</field>
+            <field name="arch" type="xml">
+                <form string="Appointment">
+                    <header>
+                        <button
+                            name="create_appointment"
+                            string="Planifier une consultation" type="object" class="oe_highlight"
+                        attrs="{'invisible': ['|', ('state','=', 'scheduled'), ('state','=', 'cancel')]}" />
+                        <button
+                            name="cancel"
+                            string="Rejeter" type="object" class="oe_highlight"
+                        attrs="{'invisible': ['|', ('state','=', 'scheduled'), ('state','=', 'cancel')]}" />
+                        <field name="state" widget="statusbar" statusbar_visible="outgoing,sent,received,exception,cancel"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_left" style="width: 500px;">
+                            <div class="oe_title" style="width: 390px;">
+                                <label class="oe_edit_only" for="name"
+                                    string="Appointment #" />
+                                <h1>
+                                    <field name="name" class="oe_inline" />
+                                </h1>
+                                <field name="partner_id"/>
+                            </div>
+                        </div>
+                        <group>
+                            <group>
+                                <field name="request_date" />
+                                <field name="appointment_date" />
+                                <field name="appointment_id" />
+                                </group>
+                            <group>
+                                <field name="speciality_id" />
+                                <field name="consultations_id" />
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Commentaires">
+                                <group>
+                                    <field name="comments"
+                                        nolabel="1" class="oe_inline"/>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+
+            </field>
+        </record>
+
+
+
+        <record id="medical_appointment_request_calendar_view" model="ir.ui.view">
+            <field name="name">medical.appointment.request.calendar.view</field>
+            <field name="model">medical.appointment.request</field>
+            <field name="arch" type="xml">
+                <calendar string="Appointments Requests" color="partner_id"
+                    quick_add="False" date_start="appointment_date">
+                    <field name="partner_id" />
+                </calendar>
+            </field>
+        </record>
+
+        <record id="medical_appointment_request_tree_view" model="ir.ui.view">
+            <field name="name">medical.appointment.request.tree.view</field>
+            <field name="model">medical.appointment.request</field>
+            <field name="arch" type="xml">
+                <tree string="Appointment Information">
+                    <field name="request_date" />
+                    <field name="partner_id" />
+                    <field name="appointment_date" />
+                    <field name="speciality_id" />
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_medical_appointment_request" model="ir.actions.act_window">
+            <field name="name">Appointment Requests</field>
+            <field name="res_model">medical.appointment.request</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar</field>
+        </record>
+
+<!--        <record id="action_app_to_invoice" model="ir.actions.act_window">-->
+<!--            <field name="name">Appointments to be invoiced</field>-->
+<!--            <field name="res_model">medical.appointment.request</field>-->
+<!--            <field name="view_type">form</field>-->
+<!--            <field name="view_mode">tree,form</field>-->
+<!--            <field name="domain">[('is_invoiced','=',False)]</field>-->
+<!--        </record>-->
+
+<!--        <act_window id="action_view_appointment_id_new" name="Requests"-->
+<!--            res_model="medical.appointment.request" src_model="medical.patient"-->
+<!--            view_mode="tree,form" domain="[('patient_id', '=', active_id)]" />-->
+
+        <menuitem id="menu_medical_appointment_request" action="action_medical_appointment_request"
+            name="Requests" string="Requests" parent="hospital_management.menu_appointment"
+            sequence="2" />
+
+
+    </data>
+</odoo>
+
